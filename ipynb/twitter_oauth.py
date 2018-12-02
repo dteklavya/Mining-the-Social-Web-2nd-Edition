@@ -7,9 +7,6 @@ import twitter
 from twitter.oauth_dance import parse_oauth_tokens
 from twitter.oauth import read_token_file, write_token_file
 
-# Note: This code is exactly the flow presented in the _AppendixB notebook
-
-OAUTH_FILE = "resources/ch09-twittercookbook/twitter_oauth"
 
 # XXX: Go to http://twitter.com/apps/new to create an app and get values
 # for these credentials that you'll need to provide in place of these
@@ -27,6 +24,10 @@ OAUTH_FILE = "resources/ch09-twittercookbook/twitter_oauth"
 import configparser
 
 config = configparser.ConfigParser()
+
+# CAUTION: These files contain secrets that can grant access to anyone that can read them.
+# Better way to manage passwords/Keys?!?!? TODO
+OAUTH_FILE = "resources/ch09-twittercookbook/twitter_oauth"
 config.read_file(open(r'./../twitter_keys'))
 
 
