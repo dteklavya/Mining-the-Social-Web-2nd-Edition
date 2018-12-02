@@ -85,18 +85,22 @@ def oauth_dance():
     return redirect(oauth_url, code=302)
 
 
-@webserver.route("/trends")
-def trends():
+@webserver.route("/trends/<int:woe_id>/")
+def trends(woe_id):
+    
     oauth_token, oauth_token_secret = read_token_file(OAUTH_FILE)
     
     auth = twitter.oauth.OAuth(oauth_token, oauth_token_secret,
                                    CONSUMER_KEY, CONSUMER_SECRET)
           
     twitter_api = twitter.Twitter(auth=auth)
-    print(json.dumps(twitter_api.trends.place(_id=23424977), indent=1))
     
-    return json.dumps(twitter_api.trends.place(_id=23424977), indent=1)
+    trends = twitter_api.trends.place(_id=woe_id)
+#     print(json.dumps(trends, indent=1))
+
+    return json.dumps(trends, indent=1)
 
 
 
 webserver.run(host='0.0.0.0')
+
